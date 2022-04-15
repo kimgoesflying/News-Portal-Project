@@ -1,0 +1,21 @@
+**Django Shell Commands
+
+from django.contrib.auth.models import User
+from news.models import *
+
+user1 = User.objects.create_user('user1')
+user2 = User.objects.create_user('user2')
+
+author1 = Author.objects.create(username=user1)
+author2 = Author.objects.create(username=user2)
+
+---
+
+Category.objects.create(name='Спорт')
+Category.objects.create(name='Политика')
+Category.objects.create(name='Культура')
+Category.objects.create(name='Наука')
+
+---
+
+post1 = Post.objects.create(author=author1, post_type = article, title = 'test', text= 'Hello world')
