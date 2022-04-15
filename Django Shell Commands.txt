@@ -1,4 +1,5 @@
-**Django Shell Commands
+Django Shell Commands
+---
 
 from django.contrib.auth.models import User
 from news.models import *
@@ -11,11 +12,27 @@ author2 = Author.objects.create(username=user2)
 
 ---
 
-Category.objects.create(name='Спорт')
-Category.objects.create(name='Политика')
-Category.objects.create(name='Культура')
-Category.objects.create(name='Наука')
+cat1 = Category.objects.create(name='Спорт')
+cat2 = Category.objects.create(name='Политика')
+cat3 = Category.objects.create(name='Культура')
+cat4 = Category.objects.create(name='Наука')
 
 ---
 
-post1 = Post.objects.create(author=author1, post_type = article, title = 'test', text= 'Hello world')
+post1 = Post.objects.create(author=author1, post_type = Post.article, title = 'article1', text= 'Hello world')
+post2 = Post.objects.create(author=author2, post_type = Post.article, title = 'article2', text= 'Hello SkillFactory')
+post3 = Post.objects.create(author=author1, post_type = Post.news, title = 'News1', text= 'Sorry Mario, Princess is in Another Castle')
+
+---
+
+post1.category.add(cat1)
+post1.category.add(cat2)
+post2.category.add(cat4)
+post3.category.add(cat3)
+
+---
+
+comm1 = Comment.objects.create(post = post1, username=user1, text = 'I like it')
+comm2 = Comment.objects.create(post = post1, username=user2, text = 'OK')
+comm3 = Comment.objects.create(post = post2, username=user1, text = ':)')
+comm4 = Comment.objects.create(post = post3, username=user1, text = '!@#$%')
