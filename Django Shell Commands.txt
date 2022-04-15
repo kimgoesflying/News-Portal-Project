@@ -36,3 +36,14 @@ comm1 = Comment.objects.create(post = post1, username=user1, text = 'I like it')
 comm2 = Comment.objects.create(post = post1, username=user2, text = 'OK')
 comm3 = Comment.objects.create(post = post2, username=user1, text = ':)')
 comm4 = Comment.objects.create(post = post3, username=user1, text = '!@#$%')
+
+---
+
+post1.like()
+post1.dislike()
+post1.like()
+post2.like()
+post2.like()
+post2.like()
+post3.like()
+
