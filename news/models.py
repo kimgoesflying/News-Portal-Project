@@ -13,12 +13,13 @@ class Author(models.Model):
         post_rating = Post.objects.filter(author_id=self.pk).aggregate(
             Sum('rating'))['rating__sum'] * 3
 
-        comment_rating = Comment.objects.filter(username_id=self.username).aggregate(
-            Sum('rating'))['rating__sum']
+        comment_rating = Comment.objects.filter(
+            username_id=self.username).aggregate(Sum('rating'))['rating__sum']
 
-        # post_comment_rating =
+        post_comment_rating = Comment.objects.filter(
+            post__author=self.pk).aggregate(Sum('rating'))['rating__sum']
 
-        self.rating = post_rating + comment_rating
+        self.rating = post_rating + comment_rating + post_comment_rating
         self.save()
 
 
