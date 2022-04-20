@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+    News List
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-center">Все новости <span class="text-muted fs-6 fw-normal">Всего: {{news | length}}</span></h1>
+
+<ul class="list-group list-group-flush">
+    {% for newspost in news %}
+        <li class="list-group-item "> <small class="fw-bold">{{ newspost.date | format_date }} </small>  
+            {{ newspost.title | censor}} 
+             <p>{{newspost.text | censor | truncatechars:21}}</p> 
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
