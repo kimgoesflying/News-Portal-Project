@@ -6,22 +6,27 @@
 {% endblock title %}
 
 {% block content %}
-<h1 class="text-center">Все новости <span class="text-muted fs-6 fw-normal">Всего: {{news | length}}</span></h1>
+<h1 class="text-center">Все новости <span class="text-muted fs-6 fw-normal">Всего: {{ page_obj.paginator.count }}</span></h1>
+<p class="text-center"><a href="{% url 'news_post_create' %}" class="btn btn-success btn-sm">Добавить новость</a></p>
+<hr>
 
 <ul class="list-group list-group-flush">
-    {% for newspost in news %}
-        <li class="list-group-item "> <small class="fw-bold">{{ newspost.date | format_date }} </small>  
-            {{ newspost.title | censor}} 
-             <p>{{newspost.text | censor | truncatechars:21}}</p> 
+    {% for newspost in news_list %}
+        <li class="list-group-item">
+            <small class="fw-bold">{{ newspost.date | format_date }} </small>  
+            <a href="{% url 'news_post' newspost.id %}">{{ newspost.title | censor}}</a>
+            <small class="text-muted ">(автор: {{ newspost.author}})</small>
+            <p>{{newspost.text | censor | truncatechars:210}}</p> 
         </li>
     {% endfor %}
 </ul>
+
 
 {% if is_paginated %}
 <nav aria-label="...">
     <ul class="pagination pagination-sm justify-content-center">
     {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+        <li class="page-item "><a class="page-link " href="?page=1">Начало</a></li>
         <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><<<</a></li>
     {% endif %}
  
@@ -35,7 +40,7 @@
  
     {% if page_obj.has_next %}
         <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">>>></a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Конец</a></li>
 
     {% endif %}
 {% endif %}

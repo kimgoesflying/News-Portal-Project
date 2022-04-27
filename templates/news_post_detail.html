@@ -7,6 +7,7 @@
 
 {% block content %}
     <h2 >{{ news_post.title | censor}} </h2>
+    <hr>
     <p class="text-muted fs-6">{{ news_post.date | format_date }}</p>
     <p>{{ news_post.text | censor | linebreaks }}</p>
 

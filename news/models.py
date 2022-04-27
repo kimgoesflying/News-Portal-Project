@@ -51,7 +51,7 @@ class Post(models.Model):
     rating = models.IntegerField(default=0)
 
     category = models.ManyToManyField(
-        Category, through='PostCategory', blank=True)
+        Category, through='PostCategory')
 
     def preview(self):
         preview = f'{self.text[0:124]} ...'
@@ -66,7 +66,10 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return f'{self.pk} {self.title.title()}'
+        return f'{self.title.title()}'
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
 
 class PostCategory(models.Model):

@@ -1,0 +1,55 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+    News Search
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-center">Поиск <span class="text-muted fs-6 fw-normal">Найдено: {{page_obj.paginator.count }}</span></h1>
+
+<form method="GET" id="my_form">
+    {{ filter.form }} 
+    <input type="submit" value="Найти" class="btn btn-primary btn-sm">
+    <a href="{% url 'news_post_create' %}" class="btn btn-success btn-sm">Добавить новость</a>
+    </form> 
+<hr>
+
+<ul class="list-group list-group-flush">
+    {% for newspost in news_list %}
+    <li class="list-group-item"> <small class="fw-bold">{{ newspost.date | format_date }} </small>  
+        <a href="{% url 'news_post' newspost.id %}">{{ newspost.title | censor}}</a>
+        <small class="text-muted ">(автор: {{ newspost.author}})</small>
+        <p>{{newspost.text | censor | truncatechars:210}}</p>
+        <p>
+            <a href="{% url 'news_post_update' newspost.id %}" class="btn btn-outline-primary btn-sm">Редактировать</a>
+            <a href="{% url 'news_post_delete' newspost.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+        </p>
+    </li>
+    {% endfor %}
+</ul>
+{% if is_paginated %}
+<nav aria-label="...">
+    <ul class="pagination pagination-sm justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><button form="my_form" name="page" value="{{page_obj.paginator.first}}" role="button" class="btn btn-link page-link">Начало</button></li>
+    <li class="page-item"><button form="my_form" name="page" value="{{page_obj.previous_page_number}}" role="button" class="btn btn-link page-link"><<<</button></li> 
+    {% endif %}
+ 
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <li class="page-item active"><a class="page-link">{{ num }}</a></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item"><button form="my_form" name="page" value="{{ num }}" role="button" class="btn btn-link page-link">{{ num }}</button></li>
+        {% endif %}
+    {% endfor %}
+ 
+    {% if page_obj.has_next %}
+        <li class="page-item"><button form="my_form" name="page" value="{{page_obj.next_page_number}}" role="button" class="btn btn-link page-link">>>></button></li>
+        <li class="page-item"><button form="my_form" name="page" value="{{page_obj.paginator.num_pages}}" role="button" class="btn btn-link page-link">Конец</button></li> 
+    {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock content %}

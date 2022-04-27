@@ -1,0 +1,20 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %} Delete NewsPost {% endblock title %}
+ 
+{% block content %} 
+<h2>Вы действительно хотите удалить новость?</h2>
+<hr>
+<p><small class="fw-bold">{{ post.date | format_date }}</small>  
+    <a href="{% url 'news_post' post.id %}">{{ post.title | censor}}</a> 
+    <small class="text-muted ">(автор: {{ post.author}})</small>   
+    <p>{{post.text | censor | truncatechars:210}}</p> 
+</p>
+
+ 
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить" class="btn btn-danger btn-sm">
+</form>
+{% endblock content %} 
