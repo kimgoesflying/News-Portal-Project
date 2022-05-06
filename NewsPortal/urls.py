@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from news.views import NewsSearch
+from news.views import NewsSearch, upgrade_me
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,6 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('search/', NewsSearch.as_view()),
 
+    path('accounts/', include('allauth.urls')),
+    path('upgrade/', upgrade_me, name='upgrade')
 ]

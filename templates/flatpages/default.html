@@ -29,8 +29,12 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="/news/">Новости</a></li>
                         <li class="nav-item"><a class="nav-link" href="/search/">Поиск</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link" href="/about/">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contacts/">Contact</a></li> -->
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="/accounts/logout">Выход</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="/accounts/login">Вход</a></li>
+                        {% endif %}
+                        <!-- <li class="nav-item"><a class="nav-link" href="/contacts/">Contact</a></li> -->
                     </ul>
                 </div>
             </div>
@@ -40,7 +44,7 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     {% block content %}
-                    {{ flatpage.content }}
+                        {{ flatpage.content }}
                     {% endblock content %}
                 </div>
             </div>

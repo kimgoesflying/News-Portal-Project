@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from allauth.account.forms import SignupForm
+from django.contrib.auth.models import Group
 # Create your models here.
 
 
@@ -102,3 +104,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.preview().title()
+
+
+class SignupForm(SignupForm):
+
+    def save(self, request):
+        user = super(SignupForm, self).save(request)
+        common_group = Group.objects.get(name='common')
+        common_group.user_set.add(user)
+        return user
