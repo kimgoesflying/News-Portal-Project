@@ -9,6 +9,9 @@
 <h1 class="text-center">Поиск <span class="text-muted fs-6 fw-normal">Найдено: {{page_obj.paginator.count }}</span></h1>
 <p class="text-center">
     <a href="{% url 'news_post_create' %}" class="btn btn-success btn-sm">Добавить новость</a>
+    {% if is_not_authors %}
+        <a href="/upgrade" class="btn btn-success btn-sm">Стать автором</a>
+    {% endif %}
 </p>
 <form method="GET" id="my_form">
     {{ filter.form }} 
