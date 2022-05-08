@@ -22,7 +22,7 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
 
     path('news/', include('news.urls')),
-    path('search/', NewsSearch.as_view()),
+    path('search/', NewsSearch.as_view(), name='search'),
 
     path('accounts/', include('allauth.urls')),
     path('upgrade/', upgrade_me, name='upgrade')

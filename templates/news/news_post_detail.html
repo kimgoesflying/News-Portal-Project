@@ -2,7 +2,7 @@
 {% load custom_filters %}
 
 {% block title %}
-    News Post
+    {{ news_post.title}}
 {% endblock title %}
 
 {% block content %}
@@ -10,5 +10,6 @@
     <hr>
     <p class="text-muted fs-6">{{ news_post.date | format_date }}</p>
     <p>{{ news_post.text | censor | linebreaks }}</p>
-
+    <a href="{% url 'news' %}" class="btn btn-secondary btn-sm">Back</a>
 {% endblock content %}
+

@@ -1,15 +1,19 @@
-from django_filters import FilterSet, DateFilter, DateRangeFilter
+from django_filters import FilterSet, DateFilter, DateRangeFilter, ModelChoiceFilter
 
-from .models import Post
+from .models import Post, Author
 from django import forms
 
 
 class NewsFilter(FilterSet):
+
     start_date = DateFilter(field_name='date', lookup_expr=(
-        'gt'), widget=forms.DateTimeInput(attrs={'type': 'date'}), label='от')
+        'gt'), widget=forms.DateTimeInput(attrs={'type': 'date', 'class': 'form-control'}), label='от')
+
     end_date = DateFilter(field_name='date', lookup_expr=(
-        'lt'), widget=forms.DateTimeInput(attrs={'type': 'date'}), label='до')
-    date = DateRangeFilter(label='Дата')
+        'lt'), widget=forms.DateTimeInput(attrs={'type': 'date', 'class': 'form-control'}), label='до')
+
+    date = DateRangeFilter(label='Дата', widget=forms.Select(
+        attrs={'class': 'form-control'}))
 
     class Meta:
         model = Post
@@ -21,3 +25,7 @@ class NewsFilter(FilterSet):
     def __init__(self, *args, **kwargs):
         super(NewsFilter, self).__init__(*args, **kwargs)
         self.filters['author'].label = "Автор"
+        self.filters['author'].field.widget.attrs.update(
+            {'class': 'form-control'})
+
+        # print(self.filters['author'].field)

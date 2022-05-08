@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from .models import Post, Author
+from .models import Post, Author, Category
 from .filters import NewsFilter
 from .forms import NewsPostForm
 # Create your views here.
@@ -24,7 +24,7 @@ def upgrade_me(request):
 class NewsList(ListView):
     model = Post
     ordering = '-date'
-    template_name = 'news_list.html'
+    template_name = 'news/news_list.html'
     context_object_name = 'news_list'
     paginate_by = 5
 
@@ -37,12 +37,12 @@ class NewsList(ListView):
 
 class NewsPostDetail(DetailView):
     model = Post
-    template_name = 'news_post_detail.html'
+    template_name = 'news/news_post_detail.html'
     context_object_name = 'news_post'
 
 
 class NewsSearch(NewsList):
-    template_name = 'news_search.html'
+    template_name = 'news/news_search.html'
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
@@ -57,13 +57,13 @@ class NewsSearch(NewsList):
 
 
 class NewsPostCreateView(PermissionRequiredMixin, CreateView):
-    template_name = 'news_post_create.html'
+    template_name = 'news/news_post_create.html'
     form_class = NewsPostForm
     permission_required = ('news.add_post')
 
 
 class NewsPostUpdateView(PermissionRequiredMixin, UpdateView):
-    template_name = 'news_post_update.html'
+    template_name = 'news/news_post_update.html'
     form_class = NewsPostForm
     permission_required = ('news.change_post')
 
@@ -73,6 +73,12 @@ class NewsPostUpdateView(PermissionRequiredMixin, UpdateView):
 
 
 class NewsPostDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = 'news_post_delete.html'
+    template_name = 'news/news_post_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+
+class CategoryList(ListView):
+    model = Category
+    context_object_name = 'news/news_list.html'
+    template_name = 'categories_list.html'
