@@ -1,6 +1,6 @@
-from django_filters import FilterSet, DateFilter, DateRangeFilter, ModelChoiceFilter
+from django_filters import FilterSet, DateFilter, DateRangeFilter, ModelMultipleChoiceFilter
 
-from .models import Post, Author
+from .models import Post, Category
 from django import forms
 
 
@@ -15,9 +15,14 @@ class NewsFilter(FilterSet):
     date = DateRangeFilter(label='Дата', widget=forms.Select(
         attrs={'class': 'form-control'}))
 
+    category = ModelMultipleChoiceFilter(queryset=Category.objects.all(),
+                                         widget=forms.CheckboxSelectMultiple())
+
     class Meta:
         model = Post
+
         fields = [
+            'category',
             'author',
             'date',
         ]
@@ -27,5 +32,3 @@ class NewsFilter(FilterSet):
         self.filters['author'].label = "Автор"
         self.filters['author'].field.widget.attrs.update(
             {'class': 'form-control'})
-
-        # print(self.filters['author'].field)

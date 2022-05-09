@@ -26,7 +26,12 @@
     {% for newspost in news_list %}
     <li class="list-group-item"> <small class="fw-bold">{{ newspost.date | format_date }} </small>  
         <a href="{% url 'news_post' newspost.id %}">{{ newspost.title | censor}}</a>
-        <small class="text-muted ">(автор: {{ newspost.author}})</small>
+        <small class="text-muted ">(автор: {{ newspost.author}})</small><br>
+        <small class="fw-bold">категории: 
+            {% for category in newspost.category.all %}
+                {{ category }}
+            {% endfor %}    
+        </small>
         <p>{{newspost.text | censor | truncatechars:210}}</p>
         <p>
             <a href="{% url 'news_post_update' newspost.id %}" class="btn btn-outline-primary btn-sm">Редактировать</a>

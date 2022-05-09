@@ -9,7 +9,13 @@
     <h2 >{{ news_post.title | censor}} </h2>
     <hr>
     <p class="text-muted fs-6">{{ news_post.date | format_date }}</p>
+
+    {% for cat in news_post.category.all %}
+        {{ cat }}
+    {% endfor %}
+    {{ news_post.author }}
+
     <p>{{ news_post.text | censor | linebreaks }}</p>
-    <a href="{% url 'news' %}" class="btn btn-secondary btn-sm">Back</a>
+    <hr>
 {% endblock content %}
 
