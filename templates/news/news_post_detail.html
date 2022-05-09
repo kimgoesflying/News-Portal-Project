@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block content %}
-    <h2 >{{ news_post.title | censor}} </h2>
+    <h1 >{{ news_post.title | censor}} </h1>
     <hr>
     <p class="text-muted fs-6">{{ news_post.date | format_date }}</p>
 
@@ -17,5 +17,9 @@
 
     <p>{{ news_post.text | censor | linebreaks }}</p>
     <hr>
+    <p>
+        <a href="{% url 'news_post_update' news_post.id %}" class="btn btn-outline-primary btn-sm">Редактировать</a>
+        <a href="{% url 'news_post_delete' news_post.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+    </p>
 {% endblock content %}
 

@@ -4,7 +4,7 @@
 {% block title %} Delete NewsPost {% endblock title %}
  
 {% block content %} 
-<h2>Вы действительно хотите удалить новость?</h2>
+<h1>Вы действительно хотите удалить новость?</h1>
 <hr>
 <p><small class="fw-bold">{{ post.date | format_date }}</small>  
     <a href="{% url 'news_post' post.id %}">{{ post.title | censor}}</a> 

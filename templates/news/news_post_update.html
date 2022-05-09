@@ -3,11 +3,22 @@
 {% block title %} Edit News Post {% endblock title %}
  
 {% block content %}
-<h3>Редактировать новость</h3>
-<hr>
-<form method="POST">
-    {% csrf_token %} 
-    {{ form.as_p}} 
-    <input type="submit" value="Сохранить" class="btn btn-primary btn-sm">
-</form>
+
+<div class="container">
+    <div class="row">
+    <h1>Редактировать новость</h1>
+    <hr>
+        <div class="col-6">
+            <div class="form-group">
+                <form method="POST">
+                    {% csrf_token %} 
+                    {{ form.as_p}} 
+                    <input type="submit" value="Сохранить" class="btn btn-primary btn-sm">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
+
