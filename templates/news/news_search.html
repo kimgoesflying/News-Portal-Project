@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block content %}
-<h1 class="text-center">Поиск <span class="text-muted fs-6 fw-normal">Найдено: {{page_obj.paginator.count }}</span></h1>
+<h1 class="text-center">Поиск <span class="text-muted fs-6 fw-normal">Найдено: {{ page_obj.paginator.count }}</span></h1>
 
 <form method="GET" id="my_form" >
     <div class="row g-2  align-items-end">
@@ -16,11 +16,15 @@
         </div>
         {% endfor %}
         <div class="col text-center">
-            <input type="submit" value="Найти" class="btn btn-primary ">
+            <input type="submit" value="Найти" class="btn btn-primary">
         </div>
     </div>
 </form>
 <hr>
+
+{% if page_obj.paginator.count == 0 %}
+    <h1 class="text-center m-5">Публикаций не найдено</h1>
+{% endif%}
 
 <ul class="list-group list-group-flush">
     {% for newspost in news_list %}
@@ -33,10 +37,12 @@
             {% endfor %}    
         </small>
         <p>{{newspost.text | censor | truncatechars:210}}</p>
+        {% if user.is_authenticated %}
         <p>
             <a href="{% url 'news_post_update' newspost.id %}" class="btn btn-outline-primary btn-sm">Редактировать</a>
             <a href="{% url 'news_post_delete' newspost.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
         </p>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

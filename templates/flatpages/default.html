@@ -39,10 +39,18 @@
                         
                         <li class="nav-item"><a class="nav-link" href="/search/">Поиск</a></li>
                         {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="/accounts/logout">Выход</a></li>
+                            <form method="post" action="{% url 'account_logout' %}">
+                                {% csrf_token %}
+                                {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                                {% endif %}
+                                <li class="nav-item"> <button class="btn btn-link nav-link" type="submit">Выход</button></li>
+                            </form>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="/accounts/login">Вход</a></li>
                         {% endif %}
+                        
+
 
                         <!-- <li class="nav-item"><a class="nav-link" href="/contacts/">Contact</a></li> -->
                     </ul>

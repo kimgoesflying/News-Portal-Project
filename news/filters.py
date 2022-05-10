@@ -16,7 +16,7 @@ class NewsFilter(FilterSet):
         attrs={'class': 'form-control'}))
 
     category = ModelMultipleChoiceFilter(queryset=Category.objects.all(),
-                                         widget=forms.CheckboxSelectMultiple())
+                                         widget=forms.CheckboxSelectMultiple(),  label='Категории')
 
     class Meta:
         model = Post

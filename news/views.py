@@ -1,12 +1,14 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Post, Author, Category
 from .filters import NewsFilter
 from .forms import NewsPostForm
+
+from django.shortcuts import render
 # Create your views here.
 
 
@@ -78,7 +80,19 @@ class NewsPostDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/news/'
 
 
-class CategoryList(ListView):
-    model = Category
-    context_object_name = 'news/news_list.html'
-    template_name = 'categories_list.html'
+class CategoryNewsListView(NewsList):
+    model = Post
+    template_name = 'news/category_news_list.html'
+    context_object_name = 'category_news_list'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(
+            Category, name=self.kwargs['category'])
+        queryset = Post.objects.filter(
+            category__name=self.category).order_by('-date')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryNewsListView, self).get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
