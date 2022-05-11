@@ -25,5 +25,6 @@ urlpatterns = [
     path('search/', NewsSearch.as_view(), name='search'),
 
     path('accounts/', include('allauth.urls')),
-    path('upgrade/', upgrade_me, name='upgrade')
+    path('upgrade/', upgrade_me, name='upgrade'),
+
 ]

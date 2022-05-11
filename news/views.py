@@ -1,10 +1,10 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from .models import Post, Author, Category
+from .models import Post, Author, Category, Subscriber
 from .filters import NewsFilter
 from .forms import NewsPostForm
 
@@ -21,6 +21,24 @@ def upgrade_me(request):
         authors_group.user_set.add(user)
 
     return redirect('/news')
+
+
+@login_required
+def subscribe(request, category):
+    user_mail = request.user.email
+    cat = Category.objects.get(name=category)
+
+    if not cat.subscriber.filter(mail=user_mail).exists():
+        if Subscriber.objects.filter(mail=user_mail).exists():
+            sub = Subscriber.objects.get(mail=user_mail)
+        else:
+            sub = Subscriber.objects.create(mail=user_mail)
+        cat.subscriber.add(sub)
+        message = 'Вы успешно подписались на рассылку новостей категории'
+    else:
+        message = 'Вы уже подписаны на категорию'
+    return render(request, 'news/subscribe.html',
+                  {'category': category, 'message': message})
 
 
 class NewsList(ListView):

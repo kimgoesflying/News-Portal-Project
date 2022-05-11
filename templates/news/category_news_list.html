@@ -7,7 +7,7 @@
 
 {% block content %}
 <h1 class="text-center"> Новости | {{category}}</h1> 
-<p class="text-center"><a href="" class="btn btn-secondary btn-sm">Подписаться</a></p>
+<p class="text-center"><a href="{% url 'subscribe' category %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
 <hr>
     <ul class="list-group list-group-flush">
         {% for cat in category_news_list %}
