@@ -49,9 +49,11 @@ class NewsList(ListView):
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
+        category_menu = Category.objects.all()
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(
             name='authors').exists()
+        context['category_menu'] = category_menu
         return context
 
 
@@ -59,6 +61,12 @@ class NewsPostDetail(DetailView):
     model = Post
     template_name = 'news/news_post_detail.html'
     context_object_name = 'news_post'
+
+    def get_context_data(self, **kwargs):
+        category_menu = Category.objects.all()
+        context = super().get_context_data(**kwargs)
+        context['category_menu'] = category_menu
+        return context
 
 
 class NewsSearch(NewsList):
@@ -81,6 +89,12 @@ class NewsPostCreateView(PermissionRequiredMixin, CreateView):
     form_class = NewsPostForm
     permission_required = ('news.add_post')
 
+    def get_context_data(self, **kwargs):
+        category_menu = Category.objects.all()
+        context = super().get_context_data(**kwargs)
+        context['category_menu'] = category_menu
+        return context
+
 
 class NewsPostUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'news/news_post_update.html'
@@ -90,6 +104,12 @@ class NewsPostUpdateView(PermissionRequiredMixin, UpdateView):
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
+
+    def get_context_data(self, **kwargs):
+        category_menu = Category.objects.all()
+        context = super().get_context_data(**kwargs)
+        context['category_menu'] = category_menu
+        return context
 
 
 class NewsPostDeleteView(LoginRequiredMixin, DeleteView):

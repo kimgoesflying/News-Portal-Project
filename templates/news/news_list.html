@@ -17,7 +17,7 @@
             <small class="text-muted ">(автор: {{ newspost.author}})</small> <br>
             <small class="fw-bold">категории: 
                 {% for category in newspost.category.all %}
-                           <a href="{% url 'category_news_list' category %}">{{ category}}</a>
+                           <a href="{% url 'category_news_list' category %}">{{ category }}</a>
                 {% endfor %}    
             </small>
             <p>{{newspost.text | censor | truncatechars:210}}</p> 
