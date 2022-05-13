@@ -1,15 +1,46 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.db.models.signals import m2m_changed, post_save
+from django.dispatch import receiver
+from django.template.loader import render_to_string
+
 from .models import Post, Author, Category, Subscriber
 from .filters import NewsFilter
 from .forms import NewsPostForm
 
-from django.shortcuts import render
-# Create your views here.
+
+# @receiver(m2m_changed, sender=Post.category.through)
+# def category_subscriber_newsletter(sender, instance, **kwargs):
+#     cat_list = instance.category.all()
+#     subs = Subscriber.objects.filter(category__in=cat_list)
+
+#     # send_mail(
+#     #     subject=instance.title,
+#     #     message=instance.text,
+#     #     recipient_list=subs,
+#     #     from_email='mailbox634@gmail.com',
+#     # )
+#     html_content = render_to_string(
+#         'news/news_post_created.html',
+#         {
+#             'news_post': instance,
+#         }
+#     )
+#     msg = EmailMultiAlternatives(
+#         subject=instance.title,
+#         body=instance.text,
+#         from_email='peterbadson@yandex.ru',
+#         to=subs,
+#     )
+#     msg.attach_alternative(html_content, "text/html")
+
+#     msg.send()
+#     print(instance.title, cat_list, subs.values_list('mail', flat=True))
 
 
 @login_required
@@ -88,6 +119,12 @@ class NewsPostCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'news/news_post_create.html'
     form_class = NewsPostForm
     permission_required = ('news.add_post')
+    success_url = '/news'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        form.send(self.object.pk)
+        return response
 
     def get_context_data(self, **kwargs):
         category_menu = Category.objects.all()

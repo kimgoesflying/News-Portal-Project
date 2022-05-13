@@ -26,7 +26,7 @@ class Author(models.Model):
         self.save()
 
     def __str__(self):
-        return self.username.username.title()
+        return self.username.username
 
 
 class Category(models.Model):
@@ -51,7 +51,7 @@ class CategorySubscriber(models.Model):
         Subscriber, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f' {self.category}  {self.subscriber}'
+        return f' {self.category} | {self.subscriber}'
 
 
 class Post(models.Model):
@@ -87,7 +87,7 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return f'{self.title} | {self.author} | {self.category.name}'
+        return f'{self.title} | {self.author}'
 
     def get_absolute_url(self):
         return f'/news/{self.id}'
@@ -99,7 +99,7 @@ class PostCategory(models.Model):
         Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f' {self.post.title.title()}  {self.category.name.title()}'
+        return f' {self.post.title} | {self.category.name}'
 
 
 class Comment(models.Model):
@@ -122,7 +122,7 @@ class Comment(models.Model):
         return preview
 
     def __str__(self):
-        return self.preview().title()
+        return self.preview()
 
 
 class CommonSignupForm(SignupForm):
