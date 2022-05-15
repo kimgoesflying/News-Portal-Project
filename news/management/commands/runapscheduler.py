@@ -60,11 +60,11 @@ class Command(BaseCommand):
         scheduler.add_job(
             news_weekly_mail,
             trigger=CronTrigger(day_of_week="mon"),
-            id="my_job",
+            id="news_weekly_mail",
             max_instances=1,
             replace_existing=True,
         )
-        logger.info("Added job 'my_job'.")
+        logger.info("Added job 'news_weekly_mail'.")
 
         scheduler.add_job(
             delete_old_job_executions,
