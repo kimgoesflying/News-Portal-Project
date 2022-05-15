@@ -42,7 +42,7 @@ class NewsPostForm(forms.ModelForm):
             for sub in subs:
                 username = User.objects.get(email=sub)
                 html_content = render_to_string(
-                    'news/news_post_created.html',
+                    'news/mail_news_post_created.html',
                     {
                         'text': text,
                         'title': title,
@@ -53,8 +53,6 @@ class NewsPostForm(forms.ModelForm):
 
                 msg = EmailMultiAlternatives(
                     subject=title,
-                    body=text,
-                    from_email='peterbadson@yandex.ru',
                     to=[sub],
                 )
                 msg.attach_alternative(html_content, "text/html")
