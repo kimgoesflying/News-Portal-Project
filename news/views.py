@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Post, Author, Category, Subscriber
 from .filters import NewsFilter
 from .forms import NewsPostForm
+from .tasks import send_newspost_createed_mail_task
 
 
 @login_required
@@ -90,7 +91,7 @@ class NewsPostCreateView(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        form.send(self.object.pk)
+        send_newspost_createed_mail_task(self.object.pk)
         return response
 
     def get_context_data(self, **kwargs):
