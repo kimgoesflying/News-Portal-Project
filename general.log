@@ -1,0 +1,24 @@
+2022-07-04 08:31:06,548 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:31:09,073 INFO basehttp "GET /hello HTTP/1.1" 200 9
+2022-07-04 08:31:15,004 INFO basehttp "GET /hello HTTP/1.1" 200 9
+2022-07-04 08:31:16,141 INFO basehttp "GET /hello HTTP/1.1" 200 9
+2022-07-04 08:33:28,616 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:33:29,266 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:34:07,668 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:34:08,270 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:35:12,707 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:35:13,457 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:38:40,542 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:38:41,310 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:41:23,088 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:41:23,632 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:41:46,570 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:41:47,180 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:42:12,756 WARNING log Not Found: /favicon.ico
+2022-07-04 08:48:10,322 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:48:10,850 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:48:16,730 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:52:26,587 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:52:27,239 INFO autoreload Watching for file changes with StatReloader
+2022-07-04 08:54:17,652 INFO autoreload /home/kim/Desktop/skillfactory/django_project2/NewsPortal/NewsPortal/settings.py changed, reloading.
+2022-07-04 08:54:52,456 INFO autoreload Watching for file changes with StatReloader

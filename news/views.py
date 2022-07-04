@@ -10,6 +10,20 @@ from .filters import NewsFilter
 from .forms import NewsPostForm
 from .tasks import send_newspost_created_mail_task
 
+from django.http import HttpResponse
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def hello(request):
+    # logger.debug('------debug')
+    # logger.info('---------info')
+    logger.warning('---warning')
+    logger.error('---ERROR')
+    # logger.critical('----------critical')
+    return HttpResponse("Test log.")
+
 
 @login_required
 def upgrade_me(request):
