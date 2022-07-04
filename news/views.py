@@ -12,17 +12,20 @@ from .tasks import send_newspost_created_mail_task
 
 from django.http import HttpResponse
 import logging
+import datetime
 
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
 def hello(request):
-    # logger.debug('------debug')
-    # logger.info('---------info')
-    logger.warning('---warning')
-    logger.error('---ERROR')
-    # logger.critical('----------critical')
-    return HttpResponse("Test log.")
+    now = datetime.datetime.now()
+    html = "<html><body>It is now %s.</body></html>" % now
+    logger.critical("--critical")
+    logger.error("--error")
+    logger.warning("--warning")
+    logger.info('--info')
+    return HttpResponse(html)
 
 
 @login_required
